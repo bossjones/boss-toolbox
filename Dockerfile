@@ -132,7 +132,7 @@ RUN set -x; \
     dnf install -y clang file findutils gcc git llvm redhat-rpm-config tar \
     {clang,zlib}-devel \
     findutils git golang make npm python-virtualenv ruby-devel rubygem-bundler tar which && \
-    dnf groupinstall -y  "Development Tools" \
+    dnf groupinstall -y  "Development Tools" && \
     # Add goss for local, serverspec-like testing
     curl -L https://github.com/aelsabbahy/goss/releases/download/${GOSS_VERSION}/goss-linux-amd64 -o /usr/local/bin/goss && \
     chmod +x /usr/local/bin/goss && \
