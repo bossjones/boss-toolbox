@@ -117,11 +117,15 @@ RUN set -x; \
     cd /root; \
     git clone https://github.com/brendangregg/perf-tools.git; \
     git clone https://github.com/iovisor/bcc; \
+    git clone https://github.com/iovisor/ply.git; \
     git clone https://github.com/opendtrace/toolkit.git dtrace-toolkit; \
     git clone https://github.com/opendtrace/scripts.git dtrace-scripts; \
     git clone https://github.com/brendangregg/FlameGraph; \
     git clone https://github.com/agentzh/perl-systemtap-toolkit.git; \
     git clone https://github.com/openresty/openresty-systemtap-toolkit.git; \
+    git clone https://github.com/derekparker/delve.git; \
+    git clone https://github.com/brendangregg/Misc.git perf-misc-info; \
+    git clone https://github.com/jvm-profiling-tools/perf-map-agent.git jvm-profiling-tools-perf-map-agent; \
     pip install cheat && \
 
     dnf update -y && \
