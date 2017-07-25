@@ -6,7 +6,7 @@ build:
 	docker build --rm -t bossjones/boss-toolbox:latest .
 
 tag:
-	docker tag bossjones/boss-toolbox:latest
+	docker tag bossjones/boss-toolbox:latest bossjones/boss-toolbox:latest
 
 build-push: build tag
 	docker push bossjones/boss-toolbox:latest bossjones/boss-toolbox:latest
