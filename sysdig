@@ -52,3 +52,27 @@ sysdig –c spy_ip 192.168.1.157
 
 # Chiesls can be combined with filters:
 sysdig -c topfiles_bytes "not fd.name contains /dev"
+
+# View the list of containers running on the machine and their resource usage
+csysdig -vcontainers
+
+# View the list of processes with container context
+csysdig -pc
+
+# See all the GET HTTP requests made by the machine
+sysdig -s 2000 -A -c echo_fds fd.port=80 and evt.buffer contains GET
+
+# See all the SQL select queries made by the machine
+sysdig -s 2000 -A -c echo_fds evt.buffer contains SELECT
+
+# See queries made via apache to an external MySQL server happening in real time
+sysdig -s 2000 -A -c echo_fds fd.sip=192.168.30.5 and proc.name=apache2 and evt.buffer contains SELECT
+
+# To get the list of available chisels, type
+sysdig –cl
+
+# list process by top CPU inside container @ name
+sysdig -pc -c topprocs_cpu container.name=mesos-ad8a3341-0f7c-4a28-ac47-744c6767990e-S18.4b5c695e-f885-47f3-9a77-7b024ffa7aa
+
+# Show all the interactive commands executed inside the container
+sysdig -pc -c spy_users container.name=mesos-ad8a3341-0f7c-4a28-ac47-744c6767990e-S18.4b5c695e-f885-47f3-9a77-7b024ffa7aa1

@@ -1,10 +1,6 @@
 FROM fedora:24
 MAINTAINER Malcolm Jones <bossjones@theblacktonystark.com>
 
-# Try adding:
-# fastestmirror=true
-# To your /etc/dnf/dnf.conf. Made a big difference here.
-
 # source: https://hub.docker.com/_/fedora/
 # source: https://github.com/fedora-cloud/Fedora-Dockerfiles/blob/master/tools/Dockerfile
 ENV container docker

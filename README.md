@@ -24,10 +24,14 @@ A: On your host ( READ: Not docker container ), run the following:
 
 `sudo sh -c 'echo 1 >/proc/sys/kernel/perf_event_paranoid'`
 
+or
+
+`sysctl -w kernel.perf_event_paranoid="1"`
+
 
 **PERSIST REBOOTS:**
 
-`sudo sh -c 'echo kernel.perf_event_paranoid=1 > /etc/sysctl.d/local.conf'`
+`sudo sh -c 'echo kernel.perf_event_paranoid=1 > /etc/sysctl.d/00-local.conf'`
 
 
 Q: What does any of that stuff mean?
