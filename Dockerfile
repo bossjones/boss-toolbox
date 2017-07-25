@@ -12,7 +12,7 @@ ENV GOSS_VERSION=v0.3.4
 ENV GOPATH='/usr/share/golang'
 
 # ENV GOPATH=$HOME/go
-ENV PATH=$PATH:$GOPATH/bin
+ENV PATH=${PATH}:${GOPATH}/bin
 # sudo go get -u github.com/kardianos/govendor
 
 LABEL RUN="docker run -it --name NAME --privileged --ipc=host --net=host --pid=host -e HOST=/host -e NAME=NAME -e IMAGE=IMAGE -v /run:/run -v /var/log:/var/log -v /etc/localtime:/etc/localtime -v /:/host IMAGE"
@@ -146,7 +146,8 @@ RUN set -x; \
     mkdir -p ${GOPATH} \
     && (go get -u -v sourcegraph.com/sourcegraph/srclib/cmd/srclib \
     && cd /usr/bin/ && go build sourcegraph.com/sourcegraph/srclib/cmd/srclib) \
-    && srclib toolchain install go ruby javascript python \
+    # && srclib toolchain install go ruby javascript python \
+    && src toolchain install-std \
     && curl -L https://raw.githubusercontent.com/nicolargo/glancesautoinstall/master/install.sh | /bin/bash \
     && dnf clean all \
     && rm -rf /var/cache/dnf
