@@ -1,0 +1,9 @@
+version: "2"
+
+services:
+  boss_tools:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
