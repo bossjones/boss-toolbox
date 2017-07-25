@@ -117,6 +117,9 @@ RUN set -x; \
     cd /root; \
     git clone https://github.com/brendangregg/perf-tools.git; \
     git clone https://github.com/iovisor/bcc; \
+    git clone https://github.com/opendtrace/toolkit.git dtrace-toolkit; \
+    git clone https://github.com/opendtrace/scripts.git dtrace-scripts; \
+    git clone https://github.com/brendangregg/FlameGraph; \
     pip install cheat && \
 
     dnf update -y && \
@@ -128,12 +131,14 @@ RUN set -x; \
     # Add goss for local, serverspec-like testing
     curl -L https://github.com/aelsabbahy/goss/releases/download/${GOSS_VERSION}/goss-linux-amd64 -o /usr/local/bin/goss && \
     chmod +x /usr/local/bin/goss && \
+    dnf debuginfo-install -y glibc-debuginfo kernel-debuginfo && \
 
     mkdir -p ${GOPATH} \
     && (go get -u -v sourcegraph.com/sourcegraph/srclib/cmd/srclib \
     && cd /usr/bin/ && go build sourcegraph.com/sourcegraph/srclib/cmd/srclib) \
     # && srclib toolchain install go ruby javascript python \
     # && src toolchain install-std \
+    && go get github.com/uber/go-torch \
     && curl -L https://raw.githubusercontent.com/nicolargo/glancesautoinstall/master/install.sh | /bin/bash \
     && dnf clean all \
     && rm -rf /var/cache/dnf

@@ -89,3 +89,6 @@ Additionally, the operator can set any environment variable in the container by 
 
 
 https://www.projectatomic.io/blog/2015/09/introducing-the-fedora-tools-image-for-fedora-atomic-host/
+
+
+https://fedoraproject.org/wiki/StackTraces
