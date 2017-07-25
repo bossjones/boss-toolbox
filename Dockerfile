@@ -17,10 +17,13 @@ RUN echo "fastestmirror=True" >> /etc/dnf/dnf.conf
 RUN [ -e /etc/yum.conf ] && sed -i '/tsflags=nodocs/d' /etc/yum.conf || true
 
 # Reinstall all packages to get man pages for them
-RUN dnf -y update && dnf -y reinstall "*" && dnf clean all
+# RUN dnf -y update && dnf -y reinstall "*" && dnf clean all
 
 # Install all useful packages
-RUN dnf -y remove vim-minimal && \
+RUN dnf -y update && \
+    # Reinstall all packages to get man pages for them
+    dnf -y reinstall "*" \
+    dnf -y remove vim-minimal && \
     dnf -y install \
            abrt \
            bash-completion \
