@@ -5,6 +5,9 @@ config_perf:
 build:
 	docker build --rm -t bossjones/boss-toolbox:latest .
 
+build-force:
+	docker build --rm --force-rm --pull --no-cache -t bossjones/boss-toolbox:latest .
+
 tag:
 	docker tag bossjones/boss-toolbox:latest bossjones/boss-toolbox:latest
 
