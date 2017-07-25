@@ -127,13 +127,13 @@ RUN set -x; \
     dnf update -y && \
     dnf install -y clang file findutils gcc git llvm redhat-rpm-config tar \
     {clang,zlib}-devel \
-    findutils git golang make npm python-virtualenv ruby-devel rubygem-bundler tar which && \
+    findutils git java java-devel golang scala make npm python-virtualenv ruby-devel rubygem-bundler tar which && \
     go get -u github.com/kardianos/govendor && \
     dnf groupinstall -y  "Development Tools" && \
     # Add goss for local, serverspec-like testing
     curl -L https://github.com/aelsabbahy/goss/releases/download/${GOSS_VERSION}/goss-linux-amd64 -o /usr/local/bin/goss && \
     chmod +x /usr/local/bin/goss && \
-    dnf debuginfo-install -y glibc-debuginfo kernel-debuginfo perl-debuginfo && \
+    if [ "${SKIP_DEBUG_PACKAGES}" == "" ]; dnf debuginfo-install -y scala nginx clang java coreutils glibc-debuginfo kernel-debuginfo perl-debuginfo python-debuginfo; fi; && \
     dnf install -y 'graphviz*' && \
 
     mkdir -p ${GOPATH} \
@@ -143,8 +143,12 @@ RUN set -x; \
     # && src toolchain install-std \
     && go get github.com/uber/go-torch \
     && curl -L https://raw.githubusercontent.com/nicolargo/glancesautoinstall/master/install.sh | /bin/bash \
+    && wget https://github.com/bcicen/ctop/releases/download/v0.6.0/ctop-0.6.0-linux-amd64 -O /usr/local/bin/ctop \
+    && chmod +x /usr/local/bin/ctop \
     && dnf clean all \
     && rm -rf /var/cache/dnf
+
+ENV JAVA_HOME /usr/lib/jvm/java-openjdk
 
 # EXPOSE PORT (For XMLRPC) - glances
 EXPOSE 61209
