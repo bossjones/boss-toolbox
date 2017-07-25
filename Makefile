@@ -22,7 +22,7 @@ run:
 				   -v /var/log:/var/log \
 				   -v /etc/localtime:/etc/localtime \
 				   -v /:/host \
-				   boss-toolbox
+				   bossjones/boss-toolbox
 
 
 # docker run -it --rm --name=sysdig --privileged=true \
