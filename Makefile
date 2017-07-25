@@ -9,7 +9,7 @@ tag:
 	docker tag bossjones/boss-toolbox:latest
 
 build-push: build tag
-	docker push bossjones/boss-toolbox:latest
+	docker push bossjones/boss-toolbox:latest bossjones/boss-toolbox:latest
 
 # ipc: IPC (POSIX/SysV IPC) namespace provides separation of named shared memory segments, semaphores and message queues.
 run:
