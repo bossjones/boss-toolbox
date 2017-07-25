@@ -133,7 +133,7 @@ RUN set -x; \
     # Add goss for local, serverspec-like testing
     curl -L https://github.com/aelsabbahy/goss/releases/download/${GOSS_VERSION}/goss-linux-amd64 -o /usr/local/bin/goss && \
     chmod +x /usr/local/bin/goss && \
-    if [ "${SKIP_DEBUG_PACKAGES}" == "" ]; dnf debuginfo-install -y scala nginx clang java coreutils glibc-debuginfo kernel-debuginfo perl-debuginfo python-debuginfo; fi; && \
+    if [ "${SKIP_DEBUG_PACKAGES}" == "" ]; then dnf debuginfo-install -y scala nginx clang java coreutils glibc-debuginfo kernel-debuginfo perl-debuginfo python-debuginfo; fi && \
     dnf install -y 'graphviz*' && \
 
     mkdir -p ${GOPATH} \
