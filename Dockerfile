@@ -129,7 +129,7 @@ RUN set -x; \
     pip install cheat && \
 
     dnf update -y && \
-    dnf install -y clang file findutils gcc git llvm redhat-rpm-config tar \
+    dnf install -y clang file findutils gcc cmake git llvm redhat-rpm-config tar \
     {clang,zlib}-devel \
     findutils git java java-devel golang scala make npm python-virtualenv ruby-devel rubygem-bundler tar which && \
     go get -u github.com/kardianos/govendor && \
@@ -137,7 +137,7 @@ RUN set -x; \
     # Add goss for local, serverspec-like testing
     curl -L https://github.com/aelsabbahy/goss/releases/download/${GOSS_VERSION}/goss-linux-amd64 -o /usr/local/bin/goss && \
     chmod +x /usr/local/bin/goss && \
-    if [ "${SKIP_DEBUG_PACKAGES}" == "" ]; then dnf debuginfo-install -y scala nginx clang java coreutils glibc-debuginfo kernel-debuginfo perl-debuginfo python-debuginfo; fi && \
+    if [ "${SKIP_DEBUG_PACKAGES}" == "" ]; then dnf debuginfo-install -y cmake scala nginx clang java coreutils glibc-debuginfo kernel-debuginfo perl-debuginfo python-debuginfo; fi && \
     dnf install -y 'graphviz*' && \
 
     mkdir -p ${GOPATH} \
@@ -162,6 +162,7 @@ EXPOSE 61208
 
 COPY ./ngrep /usr/lib/python3.5/site-packages/cheat/cheatsheets/ngrep
 COPY ./sysdig /usr/lib/python3.5/site-packages/cheat/cheatsheets/sysdig
+COPY ./sysdig /usr/lib/python3.5/site-packages/cheat/cheatsheets/perf
 
 # Set default command
 CMD ["/usr/bin/bash"]
