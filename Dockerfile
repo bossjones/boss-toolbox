@@ -11,6 +11,10 @@ ENV container docker
 ENV GOSS_VERSION=v0.3.4
 ENV GOPATH='/usr/share/golang'
 
+# ENV GOPATH=$HOME/go
+ENV PATH=$PATH:$GOPATH/bin
+# sudo go get -u github.com/kardianos/govendor
+
 LABEL RUN="docker run -it --name NAME --privileged --ipc=host --net=host --pid=host -e HOST=/host -e NAME=NAME -e IMAGE=IMAGE -v /run:/run -v /var/log:/var/log -v /etc/localtime:/etc/localtime -v /:/host IMAGE"
 
 RUN echo "fastestmirror=True" >> /etc/dnf/dnf.conf
@@ -132,6 +136,7 @@ RUN set -x; \
     dnf install -y clang file findutils gcc git llvm redhat-rpm-config tar \
     {clang,zlib}-devel \
     findutils git golang make npm python-virtualenv ruby-devel rubygem-bundler tar which && \
+    go get -u github.com/kardianos/govendor && \
     dnf groupinstall -y  "Development Tools" && \
     # Add goss for local, serverspec-like testing
     curl -L https://github.com/aelsabbahy/goss/releases/download/${GOSS_VERSION}/goss-linux-amd64 -o /usr/local/bin/goss && \
