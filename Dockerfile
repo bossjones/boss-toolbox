@@ -147,7 +147,7 @@ RUN set -x; \
     && (go get -u -v sourcegraph.com/sourcegraph/srclib/cmd/srclib \
     && cd /usr/bin/ && go build sourcegraph.com/sourcegraph/srclib/cmd/srclib) \
     # && srclib toolchain install go ruby javascript python \
-    && src toolchain install-std \
+    # && src toolchain install-std \
     && curl -L https://raw.githubusercontent.com/nicolargo/glancesautoinstall/master/install.sh | /bin/bash \
     && dnf clean all \
     && rm -rf /var/cache/dnf
