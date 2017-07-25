@@ -120,6 +120,8 @@ RUN set -x; \
     git clone https://github.com/opendtrace/toolkit.git dtrace-toolkit; \
     git clone https://github.com/opendtrace/scripts.git dtrace-scripts; \
     git clone https://github.com/brendangregg/FlameGraph; \
+    git clone https://github.com/agentzh/perl-systemtap-toolkit.git; \
+    git clone https://github.com/openresty/openresty-systemtap-toolkit.git; \
     pip install cheat && \
 
     dnf update -y && \
@@ -131,7 +133,8 @@ RUN set -x; \
     # Add goss for local, serverspec-like testing
     curl -L https://github.com/aelsabbahy/goss/releases/download/${GOSS_VERSION}/goss-linux-amd64 -o /usr/local/bin/goss && \
     chmod +x /usr/local/bin/goss && \
-    dnf debuginfo-install -y glibc-debuginfo kernel-debuginfo && \
+    dnf debuginfo-install -y glibc-debuginfo kernel-debuginfo perl-debuginfo && \
+    dnf install -y 'graphviz*' && \
 
     mkdir -p ${GOPATH} \
     && (go get -u -v sourcegraph.com/sourcegraph/srclib/cmd/srclib \
