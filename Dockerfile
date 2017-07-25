@@ -127,6 +127,7 @@ RUN set -x; \
     python3 ez_setup.py; \
     python3 get-pip.py; \
     pip3 install -I path.py==7.7.1; \
+    pip3 install virtualenv virtualenvwrapper ipython; \
     cd /root; \
     git clone https://github.com/brendangregg/perf-tools.git; \
     git clone https://github.com/iovisor/bcc; \
