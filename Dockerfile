@@ -127,7 +127,7 @@ RUN dnf update -y; \
     git clone https://github.com/iovisor/bcc; \
     pip install cheat
 
-RUN dnf update -y && \
+RUN set -x dnf update -y && \
     dnf install -y dnf install -y clang file findutils gcc git llvm redhat-rpm-config tar \
     {clang,zlib}-devel \
     findutils git golang make npm python-virtualenv ruby-devel rubygem-bundler tar which && \
