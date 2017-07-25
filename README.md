@@ -47,3 +47,45 @@ What you can do with perf without being root depends on the `kernel.perf_event_p
 `kernel.perf_event_paranoid` = 0: you can trace a command with perf stat or perf record, and get CPU event data.
 
 `kernel.perf_event_paranoid` = -1: you get raw access to kernel tracepoints (specifically, you can `mmap` the file created by `perf_event_open`, I don't know what the implications are).
+
+
+Q: Can you explain why you chose those docker run settings?
+
+
+```
+--ipc=host
+
+By default, all containers have the IPC namespace enabled.
+
+IPC (POSIX/SysV IPC) namespace provides separation of named shared memory segments, semaphores and message queues.
+
+Shared memory segments are used to accelerate inter-process communication at memory speed, rather than through pipes or through the network stack. Shared memory is commonly used by databases and custom-built (typically C/OpenMPI, C++/using boost libraries) high performance applications for scientific computing and financial services industries. If these types of applications are broken into multiple containers, you might need to share the IPC mechanisms of the containers.
+```
+
+```
+--net=host
+
+--network="bridge" : Connect a container to a network
+                      'bridge': create a network stack on the default Docker bridge
+                      'none': no networking
+                      'container:<name|id>': reuse another container's network stack
+                      'host': use the Docker host network stack
+                      '<network-name>|<network-id>': connect to a user-defined network
+```
+
+```
+--pid=host
+
+By default, all containers have the PID namespace enabled.
+
+PID namespace provides separation of processes. The PID Namespace removes the view of the system processes, and allows process ids to be reused including pid 1.
+
+In certain cases you want your container to share the host’s process namespace, basically allowing processes within the container to see all of the processes on the system. For example, you could build a container with debugging tools like strace or gdb, but want to use these tools when debugging processes within the container.
+```
+
+```
+Additionally, the operator can set any environment variable in the container by using one or more -e flags, even overriding those mentioned above, or already defined by the developer with a Dockerfile ENV. If the operator names an environment variable without specifying a value, then the current value of the named variable is propagated into the container’s environment:
+```
+
+
+https://www.projectatomic.io/blog/2015/09/introducing-the-fedora-tools-image-for-fedora-atomic-host/
