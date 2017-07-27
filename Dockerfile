@@ -126,10 +126,12 @@ RUN set -x; \
     git clone https://github.com/derekparker/delve.git; \
     git clone https://github.com/brendangregg/Misc.git perf-misc-info; \
     git clone https://github.com/jvm-profiling-tools/perf-map-agent.git jvm-profiling-tools-perf-map-agent; \
+    git clone https://github.com/madeye/sssniff.git; \
+
     pip install cheat && \
 
     dnf update -y && \
-    dnf install -y clang file findutils gcc cmake git llvm redhat-rpm-config tar \
+    dnf install -y mlocate clang file findutils gcc cmake git llvm redhat-rpm-config tar \
     {clang,zlib}-devel \
     findutils git java java-devel golang scala make npm python-virtualenv ruby-devel rubygem-bundler tar which && \
     go get -u github.com/kardianos/govendor && \
