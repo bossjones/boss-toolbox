@@ -7,3 +7,26 @@ deep=purple
 today=Wednesday
 HOME=/root
 ```
+
+# other examples
+
+```
+# docker run -it --rm --name=sysdig --privileged=true \
+#            --volume=/var/run/docker.sock:/host/var/run/docker.sock \
+#            --volume=/dev:/host/dev \
+#            --volume=/proc:/host/proc:ro \
+#            --volume=/boot:/host/boot:ro \
+#            --volume=/lib/modules:/host/lib/modules:ro \
+#            --volume=/usr:/host/usr:ro \
+#            sysdig/sysdig
+
+
+# docker run -i -t --name sysdig --privileged \
+# -v /var/run/docker.sock:/host/var/run/docker.sock \
+# -v /dev:/host/dev \
+# -v /proc:/host/proc:ro \
+# -v /boot:/host/boot:ro \
+# -v /lib/modules:/host/lib/modules:ro \
+# -v /usr:/host/usr:ro \
+# sysdig/sysdig
+```
