@@ -8,6 +8,7 @@ ENV GOSS_VERSION=v0.3.4
 ENV GOPATH='/usr/share/golang'
 ENV PATH=${PATH}:${GOPATH}/bin
 
+
 LABEL RUN="docker run -it --name NAME --privileged --ipc=host --net=host --pid=host -e HOST=/host -e NAME=NAME -e IMAGE=IMAGE -v /run:/run -v /var/log:/var/log -v /etc/localtime:/etc/localtime -v /:/host IMAGE"
 
 RUN echo "fastestmirror=True" >> /etc/dnf/dnf.conf
@@ -138,11 +139,14 @@ RUN set -x; \
     # Add goss for local, serverspec-like testing
     curl -L https://github.com/aelsabbahy/goss/releases/download/${GOSS_VERSION}/goss-linux-amd64 -o /usr/local/bin/goss && \
     chmod +x /usr/local/bin/goss && \
+    if [ "${SKIP_DEBUG_PACKAGES}" == "" ]; then dnf debuginfo-install -y cmake scala nginx clang java coreutils glibc-debuginfo kernel-debuginfo perl-debuginfo python-debuginfo; fi && \
+    dnf install -y 'graphviz*' && \
 
     mkdir -p ${GOPATH} \
     && (go get -u -v sourcegraph.com/sourcegraph/srclib/cmd/srclib \
     && cd /usr/bin/ && go build sourcegraph.com/sourcegraph/srclib/cmd/srclib) \
-
+    # && srclib toolchain install go ruby javascript python \
+    # && src toolchain install-std \
     && go get github.com/uber/go-torch \
     && curl -L https://raw.githubusercontent.com/nicolargo/glancesautoinstall/master/install.sh | /bin/bash \
     && wget https://github.com/bcicen/ctop/releases/download/v0.6.0/ctop-0.6.0-linux-amd64 -O /usr/local/bin/ctop \
